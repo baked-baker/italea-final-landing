@@ -1,0 +1,401 @@
+import type { NutritionalInfo } from "@/types/product"
+
+export const nutritionalData: { [key: string]: NutritionalInfo } = {
+// BREADS & BAKED GOODS
+"Garlic & Olive Focaccia": {
+ingredients: "Flour, Water, Yeast, Olives, Garlic Confit, Rosemary, Thyme",
+allergens: ["Gluten"],
+glycemicIndex: "High",
+healthBenefits: ["Digestive health", "Antioxidants from herbs", "Heart-healthy fats"],
+notes: [
+"All oils mentioned in recipes refer to either macadamia oil or olive oil.",
+"Both oils are heart-healthy, rich in monounsaturated fats.",
+"Macadamia oil: Heat-stable, neutral flavor, high smoke point.",
+"Olive oil: Rich in antioxidants, anti-inflammatory properties.",
+],
+image: "/images/garlic-olive-focaccia-new.png",
+},
+"GF Multi Seed Bread": {
+ingredients:
+  "Gluten-Free Rolled Oats, Sunflower Seeds, Pumpkin Seeds, Chia Seeds, Ground Flaxseeds, Sesame Seeds, Psyllium Husk, Salt, Nutritional Yeast (optional), Warm Water, Apple Cider Vinegar, Olive Oil, Maple Syrup or Honey (optional), Dates, Cinnamon",
+allergens: ["Oats (GF)", "Sesame", "Seeds"],
+glycemicIndex: "Low",
+healthBenefits: ["Gluten-free", "High fiber", "Rich in Omega-3s", "Nutrient-dense"],
+notes: ["Baked fresh daily with a blend of nutritious seeds."],
+image: "/images/rustic-multiseed-bread-loaf.png",
+},
+"Eggless Scones": {
+ingredients: "Flour, Salt, Sugar, Oil, Baking Powder, Choco Chips, Vanilla, Mazima Mala",
+allergens: ["Gluten"],
+glycemicIndex: "Medium-High",
+healthBenefits: ["Energy boost", "Adaptogenic support", "Antioxidant rich"],
+notes: [
+"All recipes containing milk/dairy can be substituted with plant-based alternatives.",
+"Suitable plant milks: almond, oat, soy, coconut, cashew, hemp milk.",
+"This makes most recipes vegan-friendly.",
+],
+image: "/images/chocolate-chip-scones-new.png",
+},
+"Double Choco Banana Bread": {
+ingredients: "Flour, Eggs, Oil, Sugar, Baking Powder & Soda, Mazima Lala, Cocoa Powder, Choco Chips, Bananas",
+allergens: ["Wheat", "Eggs", "Soy (in chocolate chips)"],
+glycemicIndex: "Medium",
+healthBenefits: ["Energy boost", "Rich flavor"],
+notes: ["Nut-Free"],
+image: "/images/double-choco-banana-bread.png",
+},
+"Carrot Banana Bread": {
+ingredients: "Flour, Carrots, Oats, Oil, Sugar, Bananas, Cinnamon, Nutmeg, Cloves, Ginger, Baking Powder, Baking Soda, Apple Sauce",
+allergens: ["Wheat", "Eggs"],
+glycemicIndex: "Medium",
+healthBenefits: ["Source of Vitamin A", "Moist and flavorful"],
+notes: ["Vegan"],
+image: "/images/carrot-banana-bread.png",
+},
+"Peanut Crumble Banana Bread": {
+ingredients: "Peanut Butter, Mazima Lala, Eggs, Flour, Crushed Peanuts, Oil, Maple Syrup, Baking Powder & Soda, Bananas, Vanilla",
+allergens: ["Peanuts", "Dairy", "Gluten", "Eggs"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Good source of protein", "Satisfying crunch", "Sugar-free"],
+notes: ["This product is sugar-free.", "Sugar-Free", "Protein dense"],
+image: "/images/peanut-crumble-banana-bread.png",
+},
+"Whole Wheat Orange Cardamom Banana Bread": {
+ingredients: "Whole Wheat Flour, Eggs, Bananas, Cardamom, Vanilla, Mazima Lala, Baking Powder, Sugar, Oil, Date Paste",
+allergens: ["Wheat", "Eggs", "Dairy (Mazima Lala)"],
+glycemicIndex: "Medium",
+healthBenefits: ["Whole grains", "Aromatic flavor", "Fiber-rich"],
+notes: ["Made with Whole Wheat Flour"],
+image: "/images/whole-wheat-orange-cardamom-banana-bread.png",
+},
+"Vegan & Gluten-Free Coconut Crust Banana Bread": {
+ingredients: "Bananas, Coconut Oil, Maple Syrup/Date Syrup, Vanilla, Orange Zest, Baking Powder & Soda, Oat Flour, Coconut Yogurt, Cinnamon, Nutmeg, Apple Sauce",
+allergens: ["Coconut"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Plant-based", "Gluten-free", "Fiber rich", "Healthy fats"],
+notes: ["Made without gluten-containing ingredients and animal products.", "Gluten-Free", "Vegan"],
+image: "/images/vegan-gluten-free-coconut-crust-banana-bread.png",
+},
+"Vegan Sweet Potato Brownie": {
+ingredients: "Sweet Potato, Maple/Date Syrup, Coconut Oil, Oat Milk, Cocoa Powder, Oat Flour/Almond Flour, Baking Powder, Sea Salt Flakes",
+allergens: ["Wheat (if not GF)", "Soy (in chocolate chips)"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Hidden vegetables", "Rich in antioxidants", "Indulgent"],
+image: "/images/vegan-brownie-variety.png",
+},
+"GF Oats & Raisin Cookies": {
+ingredients: "Gluten-Free Oats, Raisins, GF Flour Blend, Brown Sugar, Vegan Butter, Cinnamon",
+allergens: ["Oats (GF)", "Soy (in vegan butter)"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Gluten-free", "Wholesome snack"],
+image: "/images/oats-raisin-cookies.png",
+},
+
+// DRINKS & BEVERAGES
+"Ginger Dawg": {
+ingredients: "Fresh ginger, oranges, lemon, dark honey syrup, cayenne pepper, mint, apple cider vinegar",
+allergens: [],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Immunity booster", "Metabolism booster", "Anti-inflammatory", "Digestive aid"],
+image: "/images/ginger-dawa-shot.png",
+},
+"Beetroot Energy": {
+ingredients: "Beetroot, carrot, lemon, ginger, apple, cucumber, honey",
+allergens: [],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Boosts circulation", "Enhances stamina", "Provides natural energy", "Rich in antioxidants"],
+image: "/images/beetroot-energy-shot.png",
+},
+"Moringa Detox": {
+ingredients: "Moringa, cucumber, apple, ginger, activated charcoal, honey, spinach/kale",
+allergens: [],
+glycemicIndex: "Low",
+healthBenefits: ["Detoxifying", "High in antioxidants", "Alkalizing", "Rich in vitamins and minerals"],
+image: "/images/moringa-detox-shot.png",
+},
+"Collagen Shot": {
+ingredients: "Collagen peptides, orange juice, lemon juice, honey, maca powder, turmeric, grapes, black pepper",
+allergens: ["Fish (if marine collagen)"],
+glycemicIndex: "Low",
+healthBenefits: ["Promotes skin elasticity", "Strengthens hair and nails", "Supports joint health", "Mood and hormonal balance"],
+image: "/images/collagen-glow-shot.png",
+},
+"Soul Coffee": {
+ingredients: "Coffee Beans, Clove, Cinnamon, Mint",
+allergens: [],
+glycemicIndex: "Very Low",
+healthBenefits: ["Energizing", "Aromatic", "May aid digestion"],
+image: "/images/soul-coffee-tea.png",
+},
+"Soul Tea": {
+ingredients: "Lemongrass, Ginger, Mint, Green Tea",
+allergens: [],
+glycemicIndex: "Very Low",
+healthBenefits: ["Soothing", "Digestive aid", "Relaxing"],
+image: "/images/soul-coffee-tea.png",
+},
+"Much Soul": {
+ingredients: "Ceremonial Grade Matcha Powder, Water, Optional: Milk/Sweetener",
+allergens: [],
+glycemicIndex: "Very Low",
+healthBenefits: ["Enhances focus", "Promotes calm", "Rich in antioxidants (EGCG)"],
+image: "/images/matcha-drinks.png",
+},
+"Chocolate & Caramel Oouui": {
+ingredients: "Dark Chocolate, Cocoa Powder, Milk, Water, Honey, Vanilla, Cinnamon, Sea Salt, Caramel Drizzle",
+allergens: ["Dairy (if dairy milk)"],
+glycemicIndex: "Medium",
+healthBenefits: ["Comforting", "Antioxidants from dark chocolate"],
+notes: ["Can be made with plant-based milk alternatives."],
+image: "/images/chocolate-caramel-oouui.png",
+},
+"Whey Pre-Workout Smoothie": {
+ingredients: "Whey Protein, Banana, Peanuts, Mixed Nuts, Maca Powder, Milk/Yogurt, Dates, Oats, Ice Cubes",
+allergens: ["Dairy (Whey, Milk/Yogurt)", "Peanuts", "Tree Nuts", "Oats"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Muscle support", "Energy for workouts", "Quick absorption"],
+image: "/images/pre-post-workout-smoothies.png",
+},
+"After Math Post-Workout Smoothie": {
+ingredients: "Whey Protein, Frozen Berries, Banana, Yogurt, Turmeric, Dates, Chia Seeds, Mixed Nuts",
+allergens: ["Dairy (Whey, Yogurt)", "Tree Nuts"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Muscle recovery", "Anti-inflammatory", "Electrolyte replenishment"],
+image: "/images/pre-post-workout-smoothies.png",
+},
+"All-in-One Breakfast Smoothie": {
+ingredients: "Oats, Yogurt, Bananas, Ashwagandha Powder, Baobab Powder, Moringa Powder, Chia Seeds, Flax Seeds, Fenugreek, Mukombero Powder, Cashew Nuts, Macadamia Nuts, Peanuts, Vanilla Essence, Cinnamon Powder, Nutmeg Powder, Ice Cubes",
+allergens: ["Oats", "Dairy (if dairy yogurt)", "Tree Nuts (Cashew, Macadamia)", "Peanuts"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Complete nutrition", "High fiber", "Sustained energy", "Adaptogenic support", "Gut health"],
+image: "/images/all-in-one-breakfast-smoothie-new.png",
+},
+"Relax a Little": {
+ingredients: "Dried chamomile flowers, Lavender buds, Lemon balm, Dried apple bits, Vanilla bean",
+allergens: [],
+glycemicIndex: "Very Low",
+healthBenefits: ["Caffeine-free", "Sleep supportive", "Gut-friendly", "Calming", "Relaxing"],
+notes: ["A gentle, calming infusion perfect for winding down or finding a moment of stillness in your day."],
+image: "/placeholder.svg?height=100&width=100"],
+},
+
+// PORRIDGES
+"Uji Power": {
+ingredients: "Peanuts, Arrow Roots, Sweet Potato, Cassava, Vanilla, Milk, Honey",
+allergens: ["Peanuts", "Milk"],
+glycemicIndex: "Medium",
+healthBenefits: ["Sustained energy", "Rich in fiber", "Gut-friendly"],
+image: "/images/uji-power-bowl.png",
+},
+"Jamaican Plantain Porridge": {
+ingredients: "Plantain, Coconut Milk, Nutmeg, Cinnamon, Oats, Peanuts, Vanilla, Honey",
+allergens: ["Coconut"],
+glycemicIndex: "Medium",
+healthBenefits: ["Good source of potassium", "Digestive health", "Sustained energy"],
+image: "/images/plantain-porridge-bowl.png",
+},
+"Mama Jr's Uji": {
+ingredients:
+"Cassava, Banana, Groundnut (Roasted), Wimbi (Finger Millet), Sorghum, Maize Meal, Terere (Amaranth), Stinging Nettle (Thabai), Pumpkin Seeds, Purple Sweet Potato",
+allergens: ["Groundnut"],
+glycemicIndex: "Low-Medium",
+healthBenefits: [
+"Nutrient-dense",
+"Rich in fiber",
+"Supports growth and development",
+"Traditional superfood blend",
+],
+notes: ["A traditional recipe passed down through generations, packed with local goodness."],
+image: "/images/mama-jrs-uji.png",
+},
+
+// BREAKFAST BOWLS
+"Granola Fruit Bowl": {
+ingredients:
+"Granola, Yogurt (Dairy/Non-Dairy), Seasonal Fresh Fruit, Grated Beetroot, Chia Seeds, Banana Slices, Honey Drizzle",
+allergens: ["Oats", "Nuts (in granola)", "Dairy (if dairy yogurt)"],
+glycemicIndex: "Medium",
+healthBenefits: ["High fiber", "Probiotics (in yogurt)", "Vitamins from fruit", "Antioxidants (beetroot)"],
+image: "/images/colorful-granola-bowl.png",
+},
+"Oats Parfait": {
+ingredients: "Overnight Oats, Berry Compote, Muesli, Peanut Butter, Banana Slices, Date Drizzle",
+allergens: ["Oats", "Peanuts", "Nuts (in muesli)"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["High fiber", "Omega-3s", "Sustained energy", "Protein boost", "Gut-friendly", "Low GI", "Rich in prebiotics"],
+image: "/images/overnight-oats-parfait-new.png",
+},
+
+// CAKE BOWL COMBOS
+"Nutty Bowl": {
+ingredients:
+"Peanut Banana Bread, Caramelized Peanuts, Yogurt (Dairy/Non-Dairy), Peanut Sauce, Strawberry Compote, Muesli",
+allergens: ["Wheat", "Eggs", "Peanuts", "Nuts (in muesli)", "Dairy (if dairy yogurt)"],
+glycemicIndex: "Medium",
+healthBenefits: ["High protein", "Balanced meal", "Rich in antioxidants", "Healthy fats", "Fiber", "Satiety-loving crunch"],
+image: "/images/natty-bowl-delight.png",
+},
+"Death by Chocolate": {
+ingredients: "Choco Banana Bread, Choco Ganache, Choco Yogurt, Choco Chips, Berry Compote, Crushed Pistachio, Cocoa Powder, Cacao Nibs",
+allergens: ["Wheat", "Eggs", "Dairy (if dairy yogurt)", "Tree Nuts (Pistachio)", "Soy (in chocolate chips)"],
+glycemicIndex: "High",
+healthBenefits: ["Indulgent", "Energy boost", "Antioxidants from cocoa", "Protein-rich", "Mood-lifting magnesium"],
+image: "/images/death-by-chocolate-bowl-new.png",
+},
+"Carrot Cake Bowl": {
+ingredients: "Carrot Banana Bread, Yogurt (Dairy/Non-Dairy), Berries, Freshly Grated Carrots, Granola, Date Drizzle",
+allergens: ["Wheat", "Eggs", "Dairy (if dairy yogurt)", "Oats (in granola)", "Nuts (in granola)"],
+glycemicIndex: "Medium",
+healthBenefits: ["Source of Vitamin A", "Healthy fats", "Fiber-rich", "Beta-carotene", "Antioxidants", "Natural sweetness"],
+image: "/images/carrot-cake-bowl-new.png",
+},
+"Vegan Cake Bowl": {
+ingredients:
+"Vegan Brownie OR Coconut Banana Bread, Coconut Yogurt, Roasted Coconut Flakes, Cacao Nibs, Berry Compote, Date Drizzle",
+allergens: ["Coconut", "Soy (if in brownie/chocolate)"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Plant-based", "Gut-friendly (coconut yogurt)", "Antioxidants (cacao, berries)", "Dairy-free", "Eggless", "Gluten-free (depending on base)"],
+image: "/images/vegan-cake-bowl-delight.png",
+},
+
+// RETAIL ITEMS
+"Raw Organic Honey": {
+ingredients: "100% Raw Organic Honey",
+allergens: [],
+glycemicIndex: "Medium",
+healthBenefits: ["Natural sweetener", "Antioxidant properties", "Antibacterial", "Local source"],
+image: "/images/raw-honey.png",
+},
+"Date Syrup": {
+ingredients: "100% Dates",
+allergens: [],
+glycemicIndex: "Medium",
+healthBenefits: ["Natural sweetener", "Source of minerals", "Lower glycemic index than sugar"],
+image: "/images/date-syrup.png",
+},
+"Extra Virgin Macadamia Oil": {
+ingredients: "100% Cold-Pressed Extra Virgin Macadamia Oil",
+allergens: ["Tree Nuts (Macadamia)"],
+glycemicIndex: "Very Low",
+healthBenefits: ["High in monounsaturated fats", "Heart-healthy", "High smoke point"],
+image: "/images/macadamia-oil.png",
+},
+"Spiced Macadamia Chili Oil": {
+ingredients: "Macadamia Oil, Chilli Flakes, Paprika, Sea Salt, Cayenne Pepper, Garlic Powder",
+allergens: ["Tree Nuts (Macadamia)"],
+glycemicIndex: "Very Low",
+healthBenefits: ["Healthy fats", "Metabolism boost", "Anti-inflammatory", "Antioxidants"],
+image: "/images/macadamia-chili-oil.png",
+},
+"Spicy Nuts": {
+ingredients: "Cashew Nuts, Pumpkin Seeds, Flax Seeds, Fennel Seeds, Black Sesame, White Sesame, Oil, Honey, Rosemary, Salt, Black Pepper, Red Chilli, Cayenne Pepper, Sunflower Seeds",
+allergens: ["Tree Nuts", "Peanuts"],
+glycemicIndex: "Low",
+healthBenefits: ["Good source of protein and healthy fats", "Satisfying snack"],
+image: "/images/spicy-nuts.png",
+},
+"GF Caramel Granola": {
+ingredients: "Date Syrup, Honey, Brown Sugar, Butter, Vanilla, Orange Zest, Oats, Coconut Powder, Almond Flakes, Coconut Flakes, Pecan Nuts",
+allergens: ["Oats (GF)", "Coconut", "Tree Nuts (Almonds, Pecan)", "Dairy (if dairy butter)"],
+glycemicIndex: "Medium",
+healthBenefits: ["Gluten-free", "Natural sweetness", "Fiber-rich"],
+image: "/images/granola-pouch-display.png",
+},
+"Sugar-Free Muesli": {
+ingredients: "Oats, Pumpkin Seeds, Sunflower Seeds, Chia Seeds, Corn Flakes, Cranberries, Barley",
+allergens: ["Oats", "Nuts"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["No added sugar", "High fiber", "Sustained energy"],
+image: "/images/italea-muesli-delight.png",
+},
+"Salted Root Crisps": {
+ingredients: "Cassava, Beetroot, Sweet Potato, Arrow Root, Salt, Chaat Masala, Black Pepper",
+allergens: [],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Natural root vegetables", "Fiber-rich snack"],
+image: "/images/root-crisps.png",
+},
+
+// FUNCTIONAL SNACKS
+"Date & Moringa Protein Bar": {
+ingredients: "Dates, Moringa, Chia, Peanut Butter, Whey Protein, Cinnamon, Sea Salt, Coconut Oil",
+allergens: ["Dairy (Whey)", "Tree Nuts (Almonds)"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["High protein", "Superfood benefits", "Energy boosting"],
+image: "/images/date-moringa-bar.png",
+},
+"Nut Butter Energy Balls": {
+ingredients: "Dates, Chia Seeds, Pumpkin Seeds, Sunflower Seed, Almonds, Cashew, Pistachio, Cinnamon Powder, Peanut Butter, Raisins, Desiccated Coconut",
+allergens: ["Nuts", "Gluten (Oats)", "Coconut"],
+glycemicIndex: "Low",
+healthBenefits: ["Omega-3 powerhouse", "Sustained energy", "Heart healthy", "Brain food"],
+image: "/images/energy-balls.png",
+},
+"GF Muesli Bar": {
+ingredients: "Oats, Pumpkin Seeds, Sunflower Seeds, Chia Seeds, Corn Flakes, Cranberries, Barley",
+allergens: ["Oats", "Nuts"],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Gluten-free", "High fiber", "On-the-go nutrition"],
+image: "/images/muesli-bar.png",
+},
+"GF Granola Bar": {
+ingredients: "Date Syrup, Honey, Brown Sugar, Butter, Vanilla, Orange Zest, Oats, Coconut Powder, Almond Flakes, Coconut Flakes, Pecan Nuts",
+allergens: ["Oats (GF)", "Coconut", "Tree Nuts (Almonds, Pecan)", "Dairy (if dairy butter)"],
+glycemicIndex: "Medium",
+healthBenefits: ["Gluten-free", "Crunchy texture", "Energy boost"],
+image: "/images/granola-bar.png",
+},
+
+// SIDES
+"Beetroot Hummus": {
+ingredients: "Chickpeas, Beetroot, Tahini, Lemon Juice, Garlic, Olive Oil, Cumin, Salt",
+allergens: ["Sesame (Tahini)"],
+glycemicIndex: "Low",
+healthBenefits: ["Rich in fiber", "Vitamins and minerals from beetroot", "Plant-based protein"],
+image: "/images/beetroot-hummus-new.png",
+},
+"Coriander Dip": {
+ingredients: "Fresh Coriander, Yogurt (Dairy/Non-Dairy), Green Chillies, Garlic, Lemon Juice, Salt",
+allergens: ["Dairy (if dairy yogurt)"],
+glycemicIndex: "Low",
+healthBenefits: ["Fresh flavor", "Probiotics (in yogurt)"],
+image: "/images/coriander-dip-new.png",
+},
+"Tamarind Dip": {
+ingredients: "Tamarind Pulp, Dates, Cumin, Chilli Powder, Ginger, Salt",
+allergens: [],
+glycemicIndex: "Low-Medium",
+healthBenefits: ["Tangy flavor", "Digestive aid"],
+image: "/images/tamarind-dip-new.png",
+},
+
+// PROBIOTICS & GUT HEALTH
+"Fermented Cabbage": {
+ingredients: "Cabbage, Sea Salt, Caraway Seeds (optional)",
+allergens: [],
+glycemicIndex: "Very Low",
+healthBenefits: ["Rich in probiotics", "Supports gut health", "Vitamin C"],
+image: "/images/fermented-cabbage-new.png",
+},
+Kimchi: {
+ingredients: "Napa Cabbage, Radish, Garlic, Ginger, Gochugaru (Chilli Powder), Fish Sauce (optional), Salt",
+allergens: ["Fish (if fish sauce used)"],
+glycemicIndex: "Very Low",
+healthBenefits: ["Probiotic-rich", "Spicy flavor", "Vitamins A and C"],
+image: "/images/kimchi-new.png",
+},
+"Kefir Milk": {
+ingredients: "Milk (Dairy/Non-Dairy), Kefir Grains",
+allergens: ["Dairy (if dairy milk)"],
+glycemicIndex: "Low",
+healthBenefits: ["Diverse probiotics", "Calcium source", "Lactose-friendly (if dairy)"],
+image: "/images/kefir-milk-new.png",
+},
+"Honey Infused Greek Yogurt": {
+ingredients: "Greek Yogurt, Raw Honey, Live Cultures",
+allergens: ["Dairy"],
+glycemicIndex: "Low",
+healthBenefits: ["High protein", "Probiotics", "Natural sweetness"],
+image: "/images/honey-infused-greek-yogurt-new.png",
+},
+}
