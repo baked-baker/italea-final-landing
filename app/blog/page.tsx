@@ -5,7 +5,6 @@ import type React from "react"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, Filter, Clock, User, Calendar, ArrowRight } from "lucide-react"
-import Image from "next/image"
 import { FloatingNav } from "@/components/ui/floating-nav"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
 import { BlogModal } from "@/components/ui/blog-modal"
@@ -1106,7 +1105,7 @@ export default function BlogPage() {
                     onClick={() => handlePostSelect(post)}
                   >
                     <div className="relative h-64 overflow-hidden">
-                      <Image
+                      <img
                         src={post.image || "/placeholder.svg"}
                         alt={`${post.title} - Featured blog post image`}
                         width={post.width}
@@ -1184,7 +1183,7 @@ export default function BlogPage() {
                       onClick={() => handlePostSelect(post)}
                     >
                       <div className="relative h-48 overflow-hidden">
-                        <Image
+                        <img
                           src={post.image || "/placeholder.svg"}
                           alt={`${post.title} - Blog post image`}
                           width={post.width}

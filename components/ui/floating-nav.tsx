@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Leaf, Menu, X, Home, BookOpen, Mail } from "lucide-react"
-import Link from "next/link"
 
 export function FloatingNav() {
   const [isOpen, setIsOpen] = useState(false)
@@ -43,7 +42,7 @@ export function FloatingNav() {
       >
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2 group">
+            <a href="/" className="flex items-center space-x-2 group">
               <motion.div whileHover={{ rotate: 360, scale: 1.1 }} transition={{ duration: 0.6, ease: "easeInOut" }}>
                 <Leaf className="w-8 h-8 text-amber-600" />
               </motion.div>
@@ -54,7 +53,7 @@ export function FloatingNav() {
               >
                 italea
               </motion.span>
-            </Link>
+            </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
@@ -65,16 +64,13 @@ export function FloatingNav() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Link
-                    href={item.href}
-                    className="text-stone-600 hover:text-amber-600 transition-colors relative group"
-                  >
+                  <a href={item.href} className="text-stone-600 hover:text-amber-600 transition-colors relative group">
                     {item.label}
                     <motion.div
                       className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-600 group-hover:w-full transition-all duration-300"
                       whileHover={{ width: "100%" }}
                     />
-                  </Link>
+                  </a>
                 </motion.div>
               ))}
             </div>
@@ -136,7 +132,7 @@ export function FloatingNav() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                     >
-                      <Link
+                      <a
                         href={item.href}
                         className="flex items-center space-x-3 text-stone-800 hover:text-amber-600 transition-colors group"
                         onClick={handleClose}
@@ -145,7 +141,7 @@ export function FloatingNav() {
                           <item.icon className="w-5 h-5" />
                         </motion.div>
                         <span className="text-lg font-medium">{item.label}</span>
-                      </Link>
+                      </a>
                     </motion.div>
                   ))}
                 </div>
