@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/italea/apps/italea
+    - cd $DEPLOYPATH && /bin/rm -rf node_modules
+    - cd $DEPLOYPATH && npm install
+    - cd $DEPLOYPATH && npm run build
+
