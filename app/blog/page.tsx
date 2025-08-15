@@ -844,7 +844,7 @@ const blogContent: Record<string, string> = {
   <p class="text-stone-700 leading-relaxed mb-6">The result? We've lost touch with our body's natural signals. We don't know what hunger feels like, what satisfaction tastes like, or when we've had enough. We eat too fast, too much, and with too little awareness.</p>
 
   <blockquote class="bg-blue-50 border-l-4 border-blue-500 p-6 my-8 italic">
-    "In our study of 200 participants, those who practiced mindful eating for 8 weeks showed significant improvements in digestion, reduced emotional eating, and better appetite regulation. Most importantly, they reported greater satisfaction and enjoyment from their meals."<br>
+    "In our study of 200 participants, those who practiced mindful eating for 8 weeks showed significant improvements in digestion, reduced emotional eating,, and better appetite regulation. Most importantly, they reported greater satisfaction and enjoyment from their meals."<br>
     <cite class="text-sm font-semibold not-italic">— Dr. Patricia Wanjiku, Behavioral Nutrition Research</cite>
   </blockquote>
 
@@ -1006,7 +1006,6 @@ export default function BlogPage() {
       const matchesSearch =
         post?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post?.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post?.tags?.some((tag) => tag?.toLowerCase().includes(searchTerm.toLowerCase())) ||
         false
       const matchesCategory = selectedCategory === "All" || post?.category === selectedCategory
       return matchesSearch && matchesCategory
