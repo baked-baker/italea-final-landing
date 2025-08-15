@@ -1,8 +1,6 @@
 "use client"
 
 import React from "react"
-
-import type { ReactElement } from "react"
 import { Facebook, Twitter } from "lucide-react"
 
 import { useState, useEffect, useCallback, useRef, useTransition } from "react"
@@ -19,66 +17,83 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal"
 import { ProductCard3D } from "@/components/ui/product-card-3d"
 import { ProductInfoModal } from "@/components/ui/product-info-modal"
 import type { Product } from "@/types/product"
-import { nutritionalData } from "@/lib/nutritional-data"
-import Image from "next/image"
-import { joinNewsletter, joinWishlist } from "@/app/actions"
 
-export default function Italea(): ReactElement {
+const handleNewsletterSubmit = async (email: string): Promise<{ success: boolean; message: string }> => {
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email || !emailRegex.test(email)) {
+    return {
+      success: false,
+      message: "Invalid email address.",
+    }
+  }
+
+  // Simulate API call
+  await new Promise((resolve) => setTimeout(resolve, 1500))
+
+  return {
+    success: true,
+    message:
+      "Welcome to the movement! You're now officially part of the Italea circle. Check your inbox for soulful updates, exclusive offers, and product drops.",
+  }
+}
+
+const handleWishlistSubmit = async (email: string): Promise<{ success: boolean; message: string }> => {
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email || !emailRegex.test(email)) {
+    return {
+      success: false,
+      message: "Invalid email address.",
+    }
+  }
+
+  // Simulate API call
+  await new Promise((resolve) => setTimeout(resolve, 1500))
+
+  return {
+    success: true,
+    message: "You're on the list! We'll let you know when something special is about to drop.",
+  }
+}
+
+export default function ItaliaLandingPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [newsletterEmail, setNewsletterEmail] = useState("")
+  const [wishlistEmail, setWishlistEmail] = useState("")
+  const [newsletterStatus, setNewsletterStatus] = useState<{ success?: boolean; message?: string } | null>(null)
+  const [wishlistStatus, setWishlistStatus] = useState<{ success?: boolean; message?: string } | null>(null)
+  const [isPending, startTransition] = useTransition()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [selectedBlogPost, setSelectedBlogPost] = useState(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(true)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [isMuted, setIsMuted] = useState(false)
 
-  const [heroFormState, setHeroFormState] = useState<{ success: boolean; message: string } | null>(null)
-  const [newsletterFormState, setNewsletterFormState] = useState<{ success: boolean; message: string } | null>(null)
-  const [footerFormState, setFooterFormState] = useState<{ success: boolean; message: string } | null>(null)
+  const { scrollYProgress } = useScroll()
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, -200])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
 
-  const [isHeroFormPending, startHeroTransition] = useTransition()
-  const [isNewsletterFormPending, startNewsletterTransition] = useTransition()
-  const [isFooterFormPending, startFooterTransition] = useTransition()
-
-  const handleHeroFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-
-    startHeroTransition(async () => {
-      try {
-        const result = await joinNewsletter(null, formData)
-        setHeroFormState(result)
-      } catch (error) {
-        setHeroFormState({ success: false, message: "An error occurred. Please try again." })
+  const handleNewsletterFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    startTransition(async () => {
+      const result = await handleNewsletterSubmit(newsletterEmail)
+      setNewsletterStatus(result)
+      if (result.success) {
+        setNewsletterEmail("")
       }
     })
   }
 
-  const handleNewsletterFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-
-    startNewsletterTransition(async () => {
-      try {
-        const result = await joinNewsletter(null, formData)
-        setNewsletterFormState(result)
-      } catch (error) {
-        setNewsletterFormState({ success: false, message: "An error occurred. Please try again." })
-      }
-    })
-  }
-
-  const handleFooterFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-
-    startFooterTransition(async () => {
-      try {
-        const result = await joinWishlist(null, formData)
-        setFooterFormState(result)
-      } catch (error) {
-        setFooterFormState({ success: false, message: "An error occurred. Please try again." })
+  const handleWishlistFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    startTransition(async () => {
+      const result = await handleWishlistSubmit(wishlistEmail)
+      setWishlistStatus(result)
+      if (result.success) {
+        setWishlistEmail("")
       }
     })
   }
@@ -111,10 +126,6 @@ export default function Italea(): ReactElement {
       window.removeEventListener("unhandledrejection", handleUnhandledRejection)
     }
   }, [])
-
-  const { scrollYProgress } = useScroll()
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, -200])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
 
   // Optimized image preloading
   useEffect(() => {
@@ -562,134 +573,50 @@ items: [
   const categories = ["All", ...new Set(productCategories.map((c) => c.name))]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-stone-100 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
       <FloatingNav />
 
-      {/* Hero Section with Optimized Images */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-stone-900/40 z-10"
-          style={{ opacity: heroOpacity }}
-        />
-        <motion.div className="absolute inset-0" style={{ y: heroY }}>
-          <div className="w-full h-full bg-gradient-to-br from-amber-100 via-stone-100 to-amber-200 relative">
-            <Image
-              src="/images/hero-flat-lay.png"
-              alt="Italea wellness products and ingredients beautifully arranged"
-              fill
-              className="object-cover"
-              priority
-              quality={85}
-              sizes="100vw"
-              placeholder="blur"
-              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAAcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxOQCdABmX/9k="
-            />
-          </div>
-        </motion.div>
+      {/* Hero Section */}
+      <motion.section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        style={{ y: heroY, opacity: heroOpacity }}
+      >
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-flat-lay.png"
+            alt="Italea hero flat lay"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-black/30" />
+        </div>
 
-        <motion.div
-          className="relative z-20 text-center px-4 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <motion.div
-            className="mb-8"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            <div className="flex items-center justify-center mb-4">
-              <motion.div whileHover={{ rotate: 360, scale: 1.2 }} transition={{ duration: 0.8, ease: "easeInOut" }}>
-                <Leaf className="w-8 h-8 text-amber-600 mr-2" aria-hidden="true" />
-              </motion.div>
-              <motion.h1
-                className="text-6xl md:text-8xl font-serif text-stone-800 tracking-tight"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                italea
-              </motion.h1>
-              <motion.div
-                className="w-4 h-4 bg-amber-600 rounded-full ml-2"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                aria-hidden="true"
-              />
-            </div>
-            <motion.p
-              className="text-stone-700 text-lg md:text-xl font-light tracking-widest uppercase"
-              initial={{ opacity: 0, letterSpacing: "0.1em" }}
-              animate={{ opacity: 1, letterSpacing: "0.3em" }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              Guilt-Free Indulgence
-            </motion.p>
-          </motion.div>
-
-          <motion.h2
-            className="text-3xl md:text-5xl font-serif text-stone-800 mb-6 leading-tight"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            Welcome to Italea — <br />
-            <motion.span className="text-amber-700" whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              Guilt-Free Indulgence
-            </motion.span>{" "}
-            Starts Here
-          </motion.h2>
-
-          <motion.p
-            className="text-xl md:text-2xl text-stone-700 mb-8 font-light"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-          >
-            Wellness is not homework. It's flavor, soul, and community.
-          </motion.p>
-
-          <form
-            onSubmit={handleHeroFormSubmit}
-            className="flex flex-col sm:flex-row gap-4 items-center justify-center max-w-md mx-auto"
-          >
-            <motion.div className="w-full" whileHover={{ scale: 1.02 }} whileFocus={{ scale: 1.02 }}>
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                name="email"
-                className="bg-white/90 border-stone-300 text-stone-800 placeholder:text-stone-500 backdrop-blur-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                aria-label="Email address for updates"
-                required
-              />
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0,0,0,0.2)" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
-                type="submit"
-                className="bg-amber-700 hover:bg-amber-800 text-white px-8 py-3 rounded-full font-medium transition-all duration-200 focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                disabled={isHeroFormPending}
-              >
-                {isHeroFormPending ? "Submitting..." : "Get Updates"}
+        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
+              Guilt-Free
+              <span className="block text-amber-300">Indulgence</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed">
+              A wellness bakery and deli rooted in flavor, soul, and community. Opening soon at Highway Mall.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg">
+                Join the Movement
               </Button>
-            </motion.div>
-          </form>
-          {heroFormState && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`mt-4 text-sm ${heroFormState?.success ? "text-green-600" : "text-red-600"}`}
-            >
-              {heroFormState?.message}
-            </motion.div>
-          )}
-          <p className="text-stone-500 text-xs mt-2">You can unsubscribe anytime.</p>
-        </motion.div>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-amber-900 px-8 py-3 text-lg bg-transparent"
+              >
+                Explore Menu
+              </Button>
+            </div>
+          </motion.div>
+        </div>
 
         <HoneyDripAnimation />
-      </section>
+      </motion.section>
 
       {/* About Italea */}
       <ParallaxSection className="py-20 px-4 bg-stone-50">
@@ -883,6 +810,72 @@ items: [
         </div>
       </section>
 
+      {/* Newsletter Section */}
+      <ScrollReveal>
+        <section className="py-20 bg-gradient-to-r from-amber-100 to-orange-100">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-6 text-amber-900 font-serif">Join the Movement</h2>
+            <p className="text-xl mb-8 text-amber-800 max-w-2xl mx-auto">
+              Be the first to know about our grand opening, exclusive offers, and soulful updates.
+            </p>
+
+            <form onSubmit={handleNewsletterFormSubmit} className="max-w-md mx-auto">
+              <div className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  className="flex-1"
+                  required
+                />
+                <Button type="submit" disabled={isPending} className="bg-amber-600 hover:bg-amber-700">
+                  {isPending ? "Joining..." : "Join"}
+                </Button>
+              </div>
+              {newsletterStatus && (
+                <p className={`mt-4 text-sm ${newsletterStatus.success ? "text-green-600" : "text-red-600"}`}>
+                  {newsletterStatus.message}
+                </p>
+              )}
+            </form>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Wishlist Section */}
+      <ScrollReveal>
+        <section className="py-20 bg-amber-900 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-6 font-serif">Get Early Access</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Join our wishlist and be among the first to experience Italea's guilt-free indulgence.
+            </p>
+
+            <form onSubmit={handleWishlistFormSubmit} className="max-w-md mx-auto">
+              <div className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={wishlistEmail}
+                  onChange={(e) => setWishlistEmail(e.target.value)}
+                  className="flex-1 bg-white text-black"
+                  required
+                />
+                <Button type="submit" disabled={isPending} className="bg-amber-600 hover:bg-amber-700">
+                  {isPending ? "Adding..." : "Join Wishlist"}
+                </Button>
+              </div>
+              {wishlistStatus && (
+                <p className={`mt-4 text-sm ${wishlistStatus.success ? "text-green-400" : "text-red-400"}`}>
+                  {wishlistStatus.message}
+                </p>
+              )}
+            </form>
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Coming Soon Section */}
       <ParallaxSection className="py-20 px-4 bg-gradient-to-br from-stone-800 to-amber-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
@@ -898,7 +891,7 @@ items: [
               <h2 className="text-4xl md:text-5xl font-serif mb-6">
                 Opening Soon at{" "}
                 <a
-                  href="https://www.google.com/maps/search/Highway+Mall"
+                  href="https://www.google.com/maps/search=Highway+Mall"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-amber-300 hover:underline"
@@ -941,18 +934,18 @@ items: [
                 <Button
                   type="submit"
                   className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full transition-all duration-200 focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-                  disabled={isNewsletterFormPending}
+                  disabled={isPending}
                 >
-                  {isNewsletterFormPending ? "Joining..." : "Join Waitlist"}
+                  {isPending ? "Joining..." : "Join Waitlist"}
                 </Button>
               </form>
-              {newsletterFormState && (
+              {newsletterStatus && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`mt-4 text-sm ${newsletterFormState?.success ? "text-green-200" : "text-red-200"}`}
+                  className={`mt-4 text-sm ${newsletterStatus?.success ? "text-green-200" : "text-red-200"}`}
                 >
-                  {newsletterFormState?.message}
+                  {newsletterStatus?.message}
                 </motion.div>
               )}
               <p className="text-amber-100 text-xs mt-2">You can unsubscribe anytime.</p>
@@ -991,7 +984,7 @@ items: [
                   content: [
                     <a
                       key="map-link-1"
-                      href="https://www.google.com/maps/search/Highway+Mall"
+                      href="https://www.google.com/maps/search=Highway+Mall"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-amber-500 hover:underline"
@@ -1000,7 +993,7 @@ items: [
                     </a>,
                     <a
                       key="map-link-2"
-                      href="https://www.google.com/maps/search/Highway+Mall"
+                      href="https://www.google.com/maps/search=Highway+Mall"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-amber-500 hover:underline"
@@ -1070,12 +1063,13 @@ items: [
                 transition={{ duration: 0.3 }}
               >
                 <h4 className="font-semibold mb-3">Stay Connected</h4>
-                <form onSubmit={handleFooterFormSubmit} className="flex gap-2">
+                <form onSubmit={handleWishlistFormSubmit} className="flex gap-2">
                   <motion.div className="flex-1" whileHover={{ scale: 1.02 }}>
                     <Input
                       type="email"
                       placeholder="Your email"
-                      name="email"
+                      value={wishlistEmail}
+                      onChange={(e) => setWishlistEmail(e.target.value)}
                       className="bg-white/10 border-white/20 text-white placeholder:text-white/60 backdrop-blur-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all duration-200"
                       aria-label="Email address for newsletter"
                       required
@@ -1084,18 +1078,18 @@ items: [
                   <Button
                     type="submit"
                     className="bg-amber-600 hover:bg-amber-700 px-6 transition-all duration-200 focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-                    disabled={isFooterFormPending}
+                    disabled={isPending}
                   >
-                    {isFooterFormPending ? "Submitting..." : "Subscribe"}
+                    {isPending ? "Submitting..." : "Subscribe"}
                   </Button>
                 </form>
-                {footerFormState && (
+                {wishlistStatus && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`mt-4 text-sm ${footerFormState?.success ? "text-green-200" : "text-red-200"}`}
+                    className={`mt-4 text-sm ${wishlistStatus?.success ? "text-green-200" : "text-red-200"}`}
                   >
-                    {footerFormState?.message}
+                    {wishlistStatus?.message}
                   </motion.div>
                 )}
                 <p className="text-stone-400 text-xs mt-2">You can unsubscribe anytime.</p>
@@ -1111,13 +1105,13 @@ items: [
         </div>
       </footer>
 
-      {/* Product Info Modal */}
-      <ProductInfoModal
-        product={selectedProduct}
-        nutritionalInfo={selectedProduct ? nutritionalData[selectedProduct.name] : null}
-        isOpen={!!selectedProduct}
-        onClose={() => handleProductSelect(null)}
-      />
+      {selectedProduct && (
+        <ProductInfoModal
+          product={selectedProduct}
+          isOpen={!!selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </div>
   )
 }
